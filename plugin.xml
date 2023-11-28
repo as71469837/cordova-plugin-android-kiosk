@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-android-kiosk" version="1.0.0"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>AndroidKiosk</name>
+    <js-module name="AndroidKiosk" src="www/AndroidKiosk.js">
+        <clobbers target="AndroidKiosk" />
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="AndroidKiosk">
+                <param name="android-package" value="com.huayu.cordova.plugin.android.kiosk.AndroidKioskPlugin" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml">   
+        </config-file>   
+        <config-file parent="/manifest/application" target="AndroidManifest.xml" after="activity">            
+            <receiver
+                android:name="com.huayu.cordova.plugin.android.kiosk.KioskModeDeviceAdminReceiver"
+                android:enabled="true"
+                android:exported="true"
+                android:permission="android.permission.BIND_DEVICE_ADMIN">
+                <meta-data
+                    android:name="android.app.device_admin"
+                    android:resource="@xml/device_admin" />
+                <intent-filter>
+                    <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                </intent-filter>
+            </receiver>
+
+            <receiver
+                android:name="com.huayu.cordova.plugin.android.kiosk.KioskModeBroadcastReceiver"
+                android:enabled="true"
+                android:exported="true"
+                android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+                <intent-filter>
+                    <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                    <category android:name="android.intent.category.LAUNCHER" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+            </receiver>
+        </config-file>
+
+        <config-file parent="/manifest" target="AndroidManifest.xml" after="uses-permission">       
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+            <uses-permission android:name="android.permission.BIND_DEVICE_ADMIN" />
+            <uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
+
+        <source-file src="src/android/AndroidKioskPlugin.java" target-dir="src/com/huayu/cordova/plugin/android/kiosk" />
+        <source-file src="src/android/KioskModeDeviceAdminReceiver.java" target-dir="src/com/huayu/cordova/plugin/android/kiosk" />
+        <source-file src="src/android/KioskModeBroadcastReceiver.java" target-dir="src/com/huayu/cordova/plugin/android/kiosk" />
+        <source-file src="src/android/res/xml/device_admin.xml" target-dir="src/main/res/xml" />
+
+        <framework src="src/android/gradle/AndroidKioskMode.gradle" custom="true" type="gradleReference" />
+    </platform>
+</plugin>

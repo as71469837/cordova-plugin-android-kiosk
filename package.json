@@ -1,0 +1,23 @@
+{
+  "name": "androidkiosk",
+  "version": "1.0.0",
+  "description": "android kiosk mode",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dasheng",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/as71469837/cordova-plugin-android-kiosk.git"
+  },
+  "keywords": [
+    "cordova",
+    "kiosk"
+  ],
+  "bugs": {
+    "url": "https://github.com/as71469837/cordova-plugin-android-kiosk/issues"
+  },
+  "homepage": "https://github.com/as71469837/cordova-plugin-android-kiosk#readme"
+}
