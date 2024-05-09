@@ -68,4 +68,12 @@ adb shell dumpsys account
     },(err:any)=>{ } );
   }
 
+```
+
+
+### 卸载应用
+
+设置device-owner不能直接卸载应用。因此需要先取消active-admin
+```
+adb shell dpm remove-active-admin {your-app-name}/com.huayu.cordova.plugin.android.kiosk.KioskModeDeviceAdminReceiver
 ``` 
