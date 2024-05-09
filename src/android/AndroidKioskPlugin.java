@@ -119,20 +119,25 @@ public class AndroidKioskPlugin extends CordovaPlugin {
             if (enabled) {
               if (mDpm.isLockTaskPermitted(packgeName)) {
                 cordova.getActivity().startLockTask();
+                callbackContext.success("success");
               } else {
                 Toast.makeText(activityContext, "Kiosk Mode not permitted", Toast.LENGTH_SHORT).show();
+                callbackContext.error("Kiosk Mode not permitted");
               }
             } else {
               cordova.getActivity().stopLockTask();
+              callbackContext.success("success");
             }
           } catch (Exception e) {
             Toast.makeText(activityContext, "exception occurred:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            callbackContext.error("exception occurred:" + e.getMessage());
             // TODO: Log and handle appropriately
           }
         }
       });
     } else {
       Toast.makeText(activityContext, "This app is not the device owner!", Toast.LENGTH_SHORT).show();
+      callbackContext.error("This app is not the device owner!");
     }
     cordova.getActivity().runOnUiThread(() -> {
       try {
