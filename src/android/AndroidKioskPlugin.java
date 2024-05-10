@@ -10,7 +10,6 @@ import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.Manifest;
 import android.app.admin.DeviceAdminInfo;
 import android.app.admin.DevicePolicyManager;
@@ -21,6 +20,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
@@ -59,8 +59,7 @@ public class AndroidKioskPlugin extends CordovaPlugin {
     } else if (action.equals("disableAutoStart")) {
       setAppAutoStart(false, callbackContext);
       return true;
-    }
-    } else if (action.equals("removeDeviceOwner")) {
+    }else if (action.equals("removeDeviceOwner")) {
       removeDeviceOwner(callbackContext);
       return true;
     }
