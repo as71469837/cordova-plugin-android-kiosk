@@ -60,6 +60,10 @@ public class AndroidKioskPlugin extends CordovaPlugin {
       setAppAutoStart(false, callbackContext);
       return true;
     }
+    } else if (action.equals("removeDeviceOwner")) {
+      removeDeviceOwner(callbackContext);
+      return true;
+    }
 
     return false;
   }
@@ -127,6 +131,12 @@ public class AndroidKioskPlugin extends CordovaPlugin {
             } else {
               cordova.getActivity().stopLockTask();
               callbackContext.success("success");
+              if(packgeName == getLauncherPackageName())
+              {
+                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                intent.setAction(Intent.ACTION_VIEW);
+                cordova.getActivity().startActivity(intent);
+              }
             }
           } catch (Exception e) {
             Toast.makeText(activityContext, "exception occurred:" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -173,6 +183,30 @@ public class AndroidKioskPlugin extends CordovaPlugin {
         .getActivity()
         .getPackageManager()
         .resolveActivity(intent, 0).activityInfo.packageName;
+  }
+
+  private void removeDeviceOwner(CallbackContext callbackContext){
+    Context activityContext = cordova.getActivity();
+    ComponentName deviceAdmin = new ComponentName(activityContext, KioskModeDeviceAdminReceiver.class);
+    mDpm = (DevicePolicyManager) activityContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    String packgeName = activityContext.getPackageName();
+    if (mDpm.isDeviceOwnerApp(packgeName)) {
+      try
+      {
+        mDpm.removeActiveAdmin(deviceAdmin);
+      }catch (Exception e)
+      {
+        Toast.makeText(activityContext, "removeActiveAdmin occurred:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+      }
+      try
+      {
+        mDpm.clearDeviceOwnerApp(packgeName);
+      }catch (Exception e)
+      {
+        Toast.makeText(activityContext, "clearDeviceOwnerApp occurred:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+      }
+    }
+    callbackContext.success("success");
   }
 
 }

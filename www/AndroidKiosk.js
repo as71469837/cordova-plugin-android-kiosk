@@ -20,6 +20,11 @@ var AndroidKiosk= {
     endKiosk:function(success,error){
         exec(success, error, 'AndroidKiosk', 'endKiosk', null);
     },
+    
+    // 结束KIOSK模式
+    removeDeviceOwner:function(success,error){
+        exec(success, error, 'AndroidKiosk', 'removeDeviceOwner', null);
+    },
 }
 
 module.exports = AndroidKiosk;
