@@ -13,14 +13,15 @@
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">   
-        </config-file> 
-        <config-file parent="/manifest/application/activity[@android:lable='@string/activity_name']" target="AndroidManifest.xml">           
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application/activity[@android:label='@string/activity_name']">
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </config-file>     
+        </config-file>
         <config-file parent="/manifest/application" target="AndroidManifest.xml" after="activity">            
             <receiver
                 android:name="com.huayu.cordova.plugin.android.kiosk.KioskModeDeviceAdminReceiver"
