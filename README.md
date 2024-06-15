@@ -1,4 +1,4 @@
-# Cordova Plugin Android Kisok Mode
+# Cordova Plugin Android Kiosk Mode
 
 此插件，基于DPC(DevicePolicyManager),在使用中，需要DeviceOwner权限。适用于专用设备。
 详细可见：https://developer.android.google.cn/work/dpc/dedicated-devices/lock-task-mode?hl=zh-cn
